@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--[if IE 7]><html class="ie7" lang="en"><![endif]-->
+<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en"> <!--<![endif]-->
+<html>
+<head>
+<title>Contact Ethan Herr Music</title>
+<!-- primary -->
+<link href="http://fonts.googleapis.com/css?family=Titillium+Web:400,700,200" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Candal' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Oxygen:700,400,300' rel='stylesheet' type='text/css'>
+
+<!-- secondary -->
+<link href='http://fonts.googleapis.com/css?family=Molle:400italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Monsieur+La+Doulaise' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" type="text/css" href="normalize.css">
+<link rel="stylesheet" type="text/css" href="dinks-dark.css">
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript" src="js/jquery1.10.2.js"></script>
+<!-- <script type="text/javascript" src="js/jqueryeasing.js"></script> -->
+</head>
+<body class="contact">
+
+<div class="header">
+	<div class="bkg"></div>
+	<div class="nav">
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="index.html#listen">Listen</a></li>
+			<li><a href="about.html">About</a></li>
+			<!-- <li>News</li> -->
+			<li><a href="contact.html">Contact</a></li>
+			<li><a href="videos.html">Videos</a></li>
+
+		</ul>
+	</div>
+	<!-- <h2 class="blurb">I compose, perform, and produce music.</h2> -->
+</div>
+
+<div class="nav">
+    <h2><span>Contact</span></h2>
+</div>
+
+<div class="content">
+	<div class="bkg"></div>
+	
+	<h2>Shoot me an email, tell me how you really feel.</h2>
+    <div id="contactForm" class="contactform">
+        <form action="contact.php" method="post">
+            <ul>
+                <li>
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" />
+                    <span id="errorName" class="formError"></span>
+                </li>
+                <li>
+                    <label for="email">Email Address</label>
+                    <input type="text" name="email" id="email" />
+                    <span id="errorEmail" class="formError"></span>
+                </li>
+                <!--<li>
+                    <label for="subject">Subject</label>
+                    <input type="text" name="subject" id="subject" />
+                    <span id="errorSubject" class="formError"></span>
+                </li>-->
+                <li class="message">
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" rows="4"></textarea>
+                    <span id="errorMessage" class="formError"></span>
+                </li>
+                <li>
+                    <input type="submit" value="Send" class="submit btn" id="submit" />
+                    <span id="formProgress" class="formProgress"></span>
+                </li>
+            </ul>
+        </form>
+	</div>
+
+	<div class="other">
+		<p>Other ways to get in touch: <br>
+			<small>(although I don't go on these much, people say I should...)</small>
+		</p>
+		<ul>
+			<li><a href="http://twitter.com/ethanherr" target="_blank">twitter</a></li>
+			<li><a href="http://facebook.com/ethan.herr" target="_blank">facebook</a></li>
+			<li><a href="https://soundcloud.com/ethan-herr" target="_blank">soundcloud</a></li>
+		</ul>
+	</div>
+
+</div>
+
+<footer class="nav">
+	<p>&copy; Copyright 2013 Ethan Herr Music, all rights reserved.</p>
+	<p>In otherwords, hey, don't steal. All you have to do is <a href="contact.html">ask me</a> if you want something.</p>
+</footer>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	//ajax-php form behavior
+	$('#contactForm #submit').click(function() {
+		// Fade in the progress bar
+		$('#contactForm #formProgress').hide();
+		$('#contactForm #formProgress').html(/*<img src="images/ajax-loader.gif" />*/' Sending&hellip;');
+		$('#contactForm #formProgress').fadeIn(200);
+		// Disable the submit button
+		//$('#contactForm #submit').attr("disabled", "disabled");
+		// Clear and hide any error messages
+		$('#contactForm .formError').html('');
+		// Set temaprary variables for the script
+		var isFocus=0;
+		var isError=0;
+		// Get the data from the form
+		var name=$('#contactForm #name').val();
+		var email=$('#contactForm #email').val();
+		//var subject=$('#contactForm #subject').val();
+		var message=$('#contactForm #message').val();
+		// Validate the data
+		if(name=='') {
+			$('#contactForm #errorName').html('This is a required field.');
+			$('#contactForm #name').focus();
+			isFocus=1;
+			isError=1;
+		}
+		if(email=='') {
+			$('#contactForm #errorEmail').html('This is a required field.');
+			if(isFocus==0) {
+				$('#contactForm #email').focus();
+				isFocus=1;
+			}
+			isError=1;
+		} else {
+			var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+			if(reg.test(email)==false) {
+				$('#contactForm #errorEmail').html('Invalid email address.');
+				if(isFocus==0) {
+					$('#contactForm #email').focus();
+					isFocus=1;
+				}
+				isError=1;
+			}
+		}
+		if(message=='') {
+			$('#contactForm #errorMessage').html('This is a required field.');
+			if(isFocus==0) {
+				$('#contactForm #message').focus();
+				isFocus=1;
+			}
+			isError=1;
+		}
+		// Terminate the script if an error is found
+		if(isError==1) {
+			$('#contactForm #formProgress').html('');
+			$('#contactForm #formProgress').hide();
+			// Activate the submit button
+			//$('#contactForm #submit').attr("disabled", "");
+			return false;
+		}
+		$.ajaxSetup ({
+			cache: false
+		});
+		var dataString = 'name='+ name + '&email=' + email /*+ '&subject=' + subject*/ + '&message=' + message;
+		
+		$.ajax({
+			type: "POST",
+			url: "contact.php",
+			data: dataString,
+			success: function(msg) {
+				// Check to see if the mail was successfully sent
+				if(msg=='Mail sent') {
+					// Update the progress bar
+					$('#contactForm #formProgress').html('Message sent.').delay(3000).fadeOut(200);
+					// Clear the subject field and message textbox
+					$('#contactForm #name').val('');
+					$('#contactForm #email').val('');
+					$('#contactForm #message').val('');
+				} else {
+					$('#contactForm #formProgress').html('');
+					alert('There was an error sending your email. Please try again.');
+				}
+				// Activate the submit button
+				//$('#contactForm #submit').attr("disabled", "");
+			},
+			error: function(ob,errStr) {
+				$('#contactForm #formProgress').html('');
+				alert('There was an error sending your email. Please try again.');
+				// Activate the submit button
+				//$('#contactForm #submit').attr("disabled", "");
+			}
+		});
+		return false;
+	});
+});
+</script>
+</body>
+</html>
