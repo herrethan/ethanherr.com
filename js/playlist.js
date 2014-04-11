@@ -6,7 +6,7 @@ function playlist(o){
   soundManager.setup({
     url: 'js/',
     debugMode: false,
-    preferFlash: false, // optional: use 100% HTML5 mode where available
+    preferFlash: false, // false = use 100% HTML5 mode where available
     onready: function() {
       getTracks(function(xml){
         soundManager.xml = xml;
@@ -234,38 +234,41 @@ function makePlaylist(type, filter){
 
     //bind touch events - make progress bar scrubbable
     proghit.on('touchstart mousedown', function(e){
-        proghit.data('pressed', true)
-        progbar.data('speed', progbar.css('transition-duration')) 
-        progbar.css('transition-duration', '0s')
+      
+        proghit.data({
+          'pressed': true,
+          'left': $(e.target).offset().left,
+          'speed': progbar.css('transition-duration')
+        })
+        progbar.css({
+          '-moz-transition-duration':'0s',
+          '-webkit-transition-duration':'0s',
+          'transition-duration':'0s'
+        })
         if(butt.data('played')){
-          progbar.css('width', e.offsetX)
+          progbar.css('width', e.pageX - proghit.data('left'))
         }
       })
       .on('touchmove mousemove', function(e){
         if(proghit.data('pressed') && butt.data('played')){
           sound.pause();
-          progbar.css('width', e.offsetX)
+          progbar.css('width', e.pageX - proghit.data('left') )
         } 
       })
       .on('touchend mouseup', function(e){
         if(proghit.data('pressed') ){
-          sound.setPosition(sound.duration / (progwidth/e.offsetX));
+          sound.setPosition(sound.duration / (progwidth/(e.pageX - proghit.data('left')) ) );
         }
-        progbar.css('transition-duration', progbar.data('speed'))
+        progbar.css({
+          '-moz-transition-duration': progbar.data('speed'),
+          '-webkit-transition-duration': progbar.data('speed'),
+          'transition-duration': progbar.data('speed')
+        })
         proghit.data('pressed', false)
       })
   }
 
 }
-
-// $(document).on('touchend mouseup', function(e){
-//   var s = soundManager.getSoundById('courante')
-//   if($('.progress-wrap').data('pressed') ){
-//     s.setPosition(s.duration / ($('.progress-wrap').width()/e.offsetX))
-//     if($('button').data('played') && s.playState){s.play()};
-//   }
-//   $('.progress-wrap').data('pressed', false)
-// });
 
 }//end playlist()
 

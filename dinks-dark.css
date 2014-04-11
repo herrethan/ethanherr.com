@@ -180,7 +180,6 @@ h3 {
 		background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%);
 		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.3)));
 		background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.3) 100%);
-		background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.3) 100%);
 		background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.3) 100%);
 		background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.3) 100%);
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#33000000',GradientType=0 );
@@ -233,7 +232,7 @@ footer p{
 	.tracks-head label[for="genre"]{
 		color:white;
 		position: absolute;
-		top: -26px;
+		top: -32px;
 		font-size: .8em;
 		left: -5px;	
 	}
@@ -403,7 +402,6 @@ footer p{
 			background:transparent;
 			display:inline-block;
 			position:relative;
-		
 			left: 0px;
 }
 		.track .progress-hit:before{
@@ -415,6 +413,12 @@ footer p{
 		    position:absolute;
 		    top: 4px;
 		    left: -2px;
+		    -moz-transition-property: background;
+			-moz-transition-duration: .6s;
+			-webkit-transition-property: background;
+			-webkit-transition-duration: .6s;
+			-ms-transition-property: background;
+			-ms-transition-duration: .6s;
 		    transition-property: background;
 			transition-duration: .6s;
 		}
@@ -434,6 +438,12 @@ footer p{
 					background-color: #48A9FF;
 					position:relative;
 					box-shadow: 0 0 4px #48A9FF;
+					-moz-transition-property: width;
+					-moz-transition-duration: .4s;
+					-webkit-transition-property: width;
+					-webkit-transition-duration: .4s;
+					-ms-transition-property: width;
+					-ms-transition-duration: .4s;
 					transition-property: width;
 					transition-duration: .4s;
 				}
